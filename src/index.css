@@ -15,10 +15,20 @@
 
 .form-login-container {
   padding: 20px;
+  width: 500px;
 }
 
 .form-login-container input {
   margin-right: 20px;
+}
+
+.menu {
+  border-bottom: 1px solid #cecece7e;
+  padding-bottom: 0.5rem;
+}
+
+.menu a {
+  margin-right: 15px;
 }
 
 a {
@@ -28,6 +38,12 @@ a {
 }
 a:hover {
   color: #535bf2;
+  text-decoration: underline;
+}
+
+.active {
+  color: #535bf2;
+  text-decoration: underline;
 }
 
 body {

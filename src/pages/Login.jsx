@@ -1,12 +1,18 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useApi } from '../hooks/useApi.js';
-import AuthContext from '../contexts/AuthProvider.jsx';
+import { useAuth } from '../hooks/useAuth.js';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const api = useApi();
   const loading = api.loading;
-  const { setAuth } = useContext(AuthContext);
-  const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,15 +24,20 @@ const Login = () => {
 
     const { email, password } = formData;
     const data = await api.login({ email, password });
+    const user = data?.auth;
     const accessToken = data?.token;
     const role = data?.auth?.role;
 
-    setAuth({ email, password, accessToken, role });
+    setAuth({ user, accessToken, role });
+
+    if (user && accessToken) {
+      navigate(from, { replace: true });
+    }
   };
 
   return (
-    <div className="form-login-container">
-      <h2>Login</h2>
+    <div>
+      <h3>Login</h3>
       <form onSubmit={handleFormSubmit}>
         <input
           type="text"
