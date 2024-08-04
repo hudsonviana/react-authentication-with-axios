@@ -1,12 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
-
-const apiClient = axios.create({
-  baseURL: 'http://localhost:3333/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import apiClient from '../api/apiClient';
 
 export const useApi = () => {
   const [loading, setLoading] = useState(false);
@@ -52,5 +45,29 @@ export const useApi = () => {
     }
   };
 
-  return { login, logout, validateToken, loading, error };
+  const getUsers = async ({ signal, token }) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await apiClient.get('/users', {
+        signal,
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the token here
+        },
+      });
+      return response.data;
+    } catch (error) {
+      setError(
+        error.response
+          ? error.response.data
+          : 'Ocorreu um erro ao tentar retorar os usuários'
+      );
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { login, logout, validateToken, getUsers, loading, error };
 };
