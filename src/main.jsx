@@ -10,6 +10,7 @@ import Admin from './pages/Admin.jsx';
 import Editor from './pages/Editor.jsx';
 import Unauthorized from './pages/Unauthorized.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
+import PersistLogin from './components/PersistLogin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,20 @@ const router = createBrowserRouter([
         element: <RequireAuth allowedRoles={['ADMIN', 'USER']} />,
         children: [{ path: '/editor', element: <Editor /> }],
       },
+
+      // {
+      //   element: <PersistLogin />,
+      //   children: [
+      //     {
+      //       element: <RequireAuth allowedRoles={['ADMIN']} />,
+      //       children: [{ path: '/admin', element: <Admin /> }],
+      //     },
+      //     {
+      //       element: <RequireAuth allowedRoles={['ADMIN', 'USER']} />,
+      //       children: [{ path: '/editor', element: <Editor /> }],
+      //     },
+      //   ],
+      // },
     ],
   },
 ]);

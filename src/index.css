@@ -13,6 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.credenciais {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .form-login-container {
   padding: 20px;
   width: 500px;

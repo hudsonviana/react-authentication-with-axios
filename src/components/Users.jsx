@@ -25,9 +25,6 @@ const Users = () => {
       }
     };
 
-    // Último vídeo assistido
-    // https://www.youtube.com/watch?v=nI8PYZNFtac
-
     getUsers();
 
     return () => {

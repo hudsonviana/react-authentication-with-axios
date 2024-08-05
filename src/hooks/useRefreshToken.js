@@ -4,9 +4,11 @@ import { useAuth } from './useAuth';
 const useRefreshToken = () => {
   const { auth, setAuth } = useAuth();
 
+  const { refreshToken } = auth;
+
   const refresh = async () => {
     const response = await apiClient.post('/auth/refresh', {
-      user: auth.user,
+      refreshToken,
       withCredentials: true,
     });
 
