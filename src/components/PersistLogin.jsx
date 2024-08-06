@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import useRefreshToken from '../hooks/useRefreshToken';
 import { useAuth } from '../hooks/useAuth';
 
-// https://www.youtube.com/watch?v=27KeYk-5vJw&list=PL0Zuz27SZ-6PRCpm9clX0WiBEMB70FWwd&index=5&t=458s
-
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
@@ -33,3 +31,5 @@ const PersistLogin = () => {
 };
 
 export default PersistLogin;
+
+// https://www.youtube.com/watch?v=27KeYk-5vJw&list=PL0Zuz27SZ-6PRCpm9clX0WiBEMB70FWwd&index=5&t=458s

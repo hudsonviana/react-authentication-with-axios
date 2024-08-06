@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import apiClient from '../api/apiClient.js';
 import { useAuth } from '../hooks/useAuth.js';
-import { useLocation, useNavigate } from 'react-router-dom';
-// import { useApi } from '../hooks/useApi.js';
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -13,8 +12,6 @@ const Login = () => {
   const from = location.state?.from?.pathname || '/';
 
   const [formData, setFormData] = useState({ email: '', password: '' });
-  // const api = useApi();
-  // const loading = api.loading;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +53,6 @@ const Login = () => {
         />
         <input type="submit" value="Entrar" />
       </form>
-      {/* {loading && <p>Carregando...</p>} */}
     </div>
   );
 };

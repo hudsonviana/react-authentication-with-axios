@@ -17,10 +17,9 @@ const Users = () => {
         const response = await apiPrivate.get('/users', {
           signal: controller.signal,
         });
-        // console.log('Data Users:', response.data);
         isMounted && setUsers(response.data?.users);
       } catch (error) {
-        // console.log(error);
+        console.log('error:', error);
         // navigate('/login', { state: { from: location }, replace: true });
       }
     };
@@ -28,8 +27,8 @@ const Users = () => {
     getUsers();
 
     return () => {
+      // controller.abort();
       isMounted = false;
-      controller.abort();
     };
   }, []);
 
