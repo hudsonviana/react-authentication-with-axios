@@ -22,16 +22,25 @@ const Login = () => {
     e.preventDefault();
 
     const { email, password } = formData;
-    const response = await apiClient.post('/auth/login', { email, password });
-    const { accessToken, refreshToken } = response?.data;
-    const decoded = jwtDecode(accessToken);
-    const user = decoded?.auth;
-    const role = decoded?.auth?.role;
 
-    setAuth({ user, role, refreshToken, accessToken });
+    try {
+      const response = await apiClient.post('/auth/login', { email, password });
+      const { accessToken, refreshToken } = response?.data;
+      const decoded = jwtDecode(accessToken);
+      const user = decoded?.auth;
+      const role = decoded?.auth?.role;
 
-    if (user && accessToken) {
-      navigate(from, { replace: true });
+      // Store the refreshToken in localStorage
+      localStorage.setItem('refreshToken', refreshToken);
+
+      // Set authentication state
+      setAuth({ user, role, accessToken });
+
+      if (user && accessToken) {
+        navigate(from, { replace: true });
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
     }
   };
 
