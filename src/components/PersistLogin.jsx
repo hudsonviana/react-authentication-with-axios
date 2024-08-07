@@ -8,11 +8,13 @@ const PersistLogin = () => {
   const refresh = useRefreshToken();
   const { auth } = useAuth();
 
+  console.log('teste de rerenderização');
+
   useEffect(() => {
     const verifyRefreshToken = async () => {
-      console.log('verifyRefreshToken FOI CHAMADO');
       try {
-        await refresh();
+        const checkRefreshToken = localStorage.getItem('refreshToken');
+        if (checkRefreshToken) await refresh();
       } catch (error) {
         console.log(error);
       } finally {

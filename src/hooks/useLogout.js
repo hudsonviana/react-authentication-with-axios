@@ -1,15 +1,32 @@
-import apiClient from '../api/apiClient';
 import { useAuth } from './useAuth';
+import useApiPrivate from './useApiPrivate';
 
 const useLogout = () => {
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
+  const apiPrivate = useApiPrivate();
 
   const logout = async () => {
-    setAuth({});
+    const { id } = auth.user;
+
     try {
-      const response = await apiClient.post
+      const response = await apiPrivate.put(
+        '/auth/logout',
+        { id },
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response?.data?.logout) {
+        setAuth({});
+        localStorage.removeItem('refreshToken');
+      }
     } catch (error) {
-      
+      console.log(error);
     }
   };
+
+  return logout;
 };
+
+export default useLogout;

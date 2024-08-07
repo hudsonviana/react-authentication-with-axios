@@ -20,6 +20,14 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: '/login', element: <Login /> },
       { path: '/unauthorized', element: <Unauthorized /> },
+      // {
+      //   element: <RequireAuth allowedRoles={['ADMIN']} />,
+      //   children: [{ path: '/admin', element: <Admin /> }],
+      // },
+      // {
+      //   element: <RequireAuth allowedRoles={['ADMIN', 'USER']} />,
+      //   children: [{ path: '/editor', element: <Editor /> }],
+      // },
       {
         element: <PersistLogin />,
         children: [
