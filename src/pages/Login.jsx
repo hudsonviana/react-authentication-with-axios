@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import apiClient from '../api/apiClient.js';
 import { useAuth } from '../hooks/useAuth.js';
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,6 +44,14 @@ const Login = () => {
     }
   };
 
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('persist', persist);
+  }, [persist]);
+
   return (
     <div>
       <h3>Login</h3>
@@ -61,6 +69,15 @@ const Login = () => {
           onChange={handleInputChange}
         />
         <input type="submit" value="Entrar" />
+        <div className="persistCheck">
+          <input
+            type="checkbox"
+            id="persist"
+            onChange={togglePersist}
+            checked={persist}
+          />
+          <label htmlFor="persist">Confiar neste dispositivo</label>
+        </div>
       </form>
     </div>
   );
